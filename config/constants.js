@@ -1,3 +1,6 @@
-export const FIZZBUZZ = 'fizzbuzz';
-export const FIZZ = 'fizz';
-export const BUZZ = 'buzz';
+const FIZZBUZZ = "fizzbuzz";
+const FIZZ = "fizz";
+const BUZZ = "buzz";
+module.exports = { FIZZBUZZ, FIZZ, BUZZ };
+
+

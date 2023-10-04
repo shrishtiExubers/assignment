@@ -3,7 +3,7 @@
 const fizzbuzzModel = require("../models/fizzbuzz");
 const validator = require("validator");
 const {FIZZ, FIZZBUZZ, BUZZ} = require("../config/constants")
-
+console.log(FIZZ, FIZZBUZZ, BUZZ)
 const saveFizzBuzzResult = async (req, res, next) => {
   try {
     var noPassed = req.body.number;
