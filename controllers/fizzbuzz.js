@@ -2,10 +2,10 @@
 
 const fizzbuzzModel = require("../models/fizzbuzz");
 const validator = require("validator");
+const {FIZZ, FIZZBUZZ, BUZZ} = require("../config/constants")
 
 const saveFizzBuzzResult = async (req, res, next) => {
   try {
-	console.log("req===============", req)
     var noPassed = req.body.number;
 
     //validate for valid json
@@ -33,7 +33,7 @@ const saveFizzBuzzResult = async (req, res, next) => {
       return res.status(200).json({
         Success: true,
         message: "Successfully Created",
-        data: createdData,
+        data: createdData.result,
       });
     }
   } catch (err) {
@@ -53,11 +53,11 @@ const fizzBuzz = (n) => {
 
   for (let i = 1; i <= n; ++i) {
     if (i % 3 === 0 && i % 5 === 0) {
-      result.push("FizzBuzz");
+      result.push(FIZZBUZZ);
     } else if (i % 3 === 0) {
-      result.push("Fizz");
+      result.push(FIZZ);
     } else if (i % 5 === 0) {
-      result.push("Buzz");
+      result.push(BUZZ);
     } else {
       result.push(i.toString());
     }
@@ -66,4 +66,5 @@ const fizzBuzz = (n) => {
 };
 module.exports = {
   saveFizzBuzzResult,
+  fizzBuzz
 };

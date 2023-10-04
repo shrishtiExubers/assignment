@@ -16,7 +16,9 @@ fizzBuzzRoutes(router);
 app.use(cors({origin: '*'}))
 
 const appPort = process.env.PORT ? process.env.PORT :4000 
-app.listen(appPort, ()=>{
+const server = app.listen(appPort, ()=>{
 	console.log("listening to port", appPort, " !!");
 })
+
+module.exports = server;
 

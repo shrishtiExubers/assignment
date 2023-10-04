@@ -1,4 +1,3 @@
-const todoStatus = [
-				{id:1, status:"pending"},
-				{id:3, status:"Completed"}
-				]
+export const FIZZBUZZ = 'fizzbuzz';
+export const FIZZ = 'fizz';
+export const BUZZ = 'buzz';

@@ -1,5 +1,13 @@
 const mongoose = require("mongoose");
-const db_url = process.env.MONGODB_URL || 'mongodb://localhost/fizzBuzz_DB';
+const {
+	DB_USER,
+	DB_PASSWORD,
+	DB_HOST,
+	DB_PORT,
+	DB_NAME,
+  } = process.env;
+  
+const db_url =  `mongodb://${DB_USER}:${DB_PASSWORD}@${DB_HOST}:${DB_PORT}/${DB_NAME}?authSource=admin` || 'mongodb://localhost/fizzBuzz_DB';
 console
 mongoose.connect(db_url, {
 	keepAlive: true,

@@ -1,0 +1,67 @@
+openapi: 3.0.3
+info:
+  description: 'This is nodejs portal fizbuzz api.'
+  version: '1.0.0'
+  title: 'Swagger lyvely'
+  termsOfService: 'http://swagger.io/terms/'
+  contact:
+    email: 'test@swagger.io'
+tags:
+  - name: FizzBuzz
+    description: FizzBuzz API
+
+paths:
+  # [POST] channels
+  /fizzbuzz:
+    post:
+      tags:
+        - fizzbuzz
+      summary: Add fizzbuzz result to DB
+      requestBody:
+        description: Create a new pet in the store
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/FizzBuzzRequest'
+      responses:
+        200:
+          description: Successful creation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/FizzBuzz'
+                  
+        400:
+          description: 'Bad Request'
+        409:
+          description: 'Conflict'
+        500:
+          description: 'Server Error'
+       
+components:
+  schemas:
+    FizzBuzz:
+      type: object
+      properties:
+        number:
+          type: integer
+          format: int64
+          example: 10
+        createdAt:
+          type: string
+          example: 'Wed Oct 04 2023 15:37:56 GMT+0530'
+        result:
+          type: array
+          items:
+            type: string
+            example: "Fizz"
+    FizzBuzzRequest:
+      required:
+        - number
+      type: object
+      properties:
+        number:
+          type: integer
+          format: int64
+          example: 10 
+      

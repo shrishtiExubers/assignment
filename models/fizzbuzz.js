@@ -6,8 +6,7 @@ const fizzBuzzSchema = new mongoose.Schema({
     type: String, required: true
   },
   result:{type:Array, required:true},
-  createdAt:{type:Date, required:true, default:new Date()},
-  password:{type:String, required:false}
+  createdAt:{type:Date, required:true, default:new Date()}
   
 })
 
