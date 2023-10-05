@@ -53,6 +53,4 @@ describe("fizzbuzz Unit Tests", function () {
     const result = await fizzBuzz(10);
     expect(result).toEqual(mockResult);
   });
-
-  
 });

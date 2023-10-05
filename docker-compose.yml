@@ -1,0 +1,29 @@
+version: '3.8'
+services:
+  mongodb:
+    image: mongo:latest
+    container_name: mongodb
+    ports:
+      - "27017:27017"
+    networks:
+      - mynetwork
+
+  nodejs-app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: nodejs-app
+    ports:
+      - "4000:4000"
+    depends_on:
+      - mongodb
+    environment:
+      MONGODB_URL: "mongodb://mongodb/fizzBuzz_DB"
+      PORT: "4000"
+    volumes:
+      - ./mongodb_data:/data/db/
+    networks:
+      - mynetwork
+
+networks:
+  mynetwork:
