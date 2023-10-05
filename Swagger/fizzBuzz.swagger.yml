@@ -50,7 +50,7 @@ components:
         createdAt:
           type: string
           example: 'Wed Oct 04 2023 15:37:56 GMT+0530'
-        result:
+        fizzbuzz:
           type: array
           items:
             type: string

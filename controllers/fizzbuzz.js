@@ -4,14 +4,15 @@ const fizzbuzzModel = require("../models/fizzbuzz");
 const validator = require("validator");
 const {FIZZ, FIZZBUZZ, BUZZ} = require("../config/constants")
 console.log(FIZZ, FIZZBUZZ, BUZZ)
+
 const saveFizzBuzzResult = async (req, res, next) => {
   try {
-    var noPassed = req.body.number;
+    var noPassed = req?.body?.number;
 
     //validate for valid json
-    const isValid = await validator.isJSON(JSON.stringify(req.body));
+    const isValid = await validator.isJSON(JSON.stringify(req.body),{ allow_primitives: false });
     if (!isValid) {
-      res.status(412).send({
+      return res.status(412).send({
         success: false,
         message: "Validation failed",
         data: err,
@@ -33,7 +34,7 @@ const saveFizzBuzzResult = async (req, res, next) => {
       return res.status(200).json({
         Success: true,
         message: "Successfully Created",
-        data: createdData.result,
+        fizzbuzz: createdData.result,
       });
     }
   } catch (err) {

@@ -10,14 +10,14 @@ describe("fizzbuzz Unit Tests", function () {
       const mockResult = [
         "1",
         "2",
-        "Fizz",
+        "fizz",
         "4",
-        "Buzz",
-        "Fizz",
+        "buzz",
+        "fizz",
         "7",
         "8",
-        "Fizz",
-        "Buzz",
+        "fizz",
+        "buzz",
       ];
 
       const res = await request(app)
@@ -35,20 +35,28 @@ describe("fizzbuzz Unit Tests", function () {
         .set("Accept", "application/json");
       expect(res.statusCode).toEqual(400);
     });
+
+    it.only("should give error if it is invalid json", async function () {
+      const res = await request(app)
+        .post("/api/fizzbuzz")
+        .send( 'test')
+        .set("Accept", "application/json");
+      expect(res.statusCode).toEqual(412);
+    });
   });
 
   it("fizzBuzz function give the result of given number", async () => {
     const mockResult = [
       "1",
       "2",
-      "Fizz",
+      "fizz",
       "4",
-      "Buzz",
-      "Fizz",
+      "buzz",
+      "fizz",
       "7",
       "8",
-      "Fizz",
-      "Buzz",
+      "fizz",
+      "buzz",
     ];
     const result = await fizzBuzz(10);
     expect(result).toEqual(mockResult);
