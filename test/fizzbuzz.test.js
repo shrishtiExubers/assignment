@@ -7,7 +7,7 @@ const app = require("../server");
 describe("fizzbuzz Unit Tests", function () {
   describe("Save fizzbuzz result functionality", function () {
     it("should successfully add a fizzbuzz if the number  in the DB  is not present", async function () {
-      const mockResult = [
+      const mockResult =[
         "1",
         "2",
         "fizz",
@@ -18,14 +18,21 @@ describe("fizzbuzz Unit Tests", function () {
         "8",
         "fizz",
         "buzz",
-      ];
+        "11",
+        "fizz",
+        "13",
+        "14",
+        "fizzbuzz",
+        "16",
+        "17"
+    ]
 
       const res = await request(app)
         .post("/api/fizzbuzz")
-        .send({ number: 10 })
+        .send({ number: 17 })
         .set("Accept", "application/json");
       expect(res.statusCode).toEqual(200);
-      expect(res.body.data.result).toEqual(mockResult);
+      expect(res.body.fizzbuzz).toEqual(mockResult);
     });
 
     it("should give error if number is not present in payload", async function () {
@@ -39,8 +46,8 @@ describe("fizzbuzz Unit Tests", function () {
     it("should give error if it is invalid json", async function () {
       const res = await request(app)
         .post("/api/fizzbuzz")
-        .send( 'test')
-        .set("Accept", "application/json");
+        .send({})
+        .set("Accept", "application/text");
       expect(res.statusCode).toEqual(412);
     });
   });

@@ -2,50 +2,52 @@
 
 const fizzbuzzModel = require("../models/fizzbuzz");
 const validator = require("validator");
-const {FIZZ, FIZZBUZZ, BUZZ} = require("../config/constants")
-console.log(FIZZ, FIZZBUZZ, BUZZ)
+const { FIZZ, FIZZBUZZ, BUZZ } = require("../config/constants");
+console.log(FIZZ, FIZZBUZZ, BUZZ);
 
 const saveFizzBuzzResult = async (req, res, next) => {
   try {
     var noPassed = req?.body?.number;
-
     //validate for valid json
-    const isValid = await validator.isJSON(JSON.stringify(req.body),{ allow_primitives: false });
+    const isValid = await validator.isJSON(JSON.stringify(req.body)) && Object.keys(req.body).length >0;
     if (!isValid) {
       return res.status(412).send({
         success: false,
-        message: "Validation failed",
-        data: err,
+        message: "Validation failed"
       });
     }
-
     //check whether that number is available or not
-    const getResult = await fizzbuzzModel.find({ number: noPassed });
-    if (getResult.length) {
+    if (noPassed) {
+      const getResult = await fizzbuzzModel.find({ number: noPassed });
+      if ( getResult.length) {
+        return res.status(400).json({
+          Success: true,
+          message: "Entered Number data already existed",
+          data: getResult,
+        });
+      } else {
+        const result = await fizzBuzz(req.body.number);
+        let saveData = { number: noPassed, result };
+        const createdData = await fizzbuzzModel.create(saveData);
+        return res.status(200).json({
+          Success: true,
+          message: "Successfully Created",
+          fizzbuzz: createdData.result,
+        });
+      }
+    } else {
       return res.status(400).json({
         Success: true,
-        message: "Entered Number data already existed",
-        data: getResult,
-      });
-    } else {
-      const result = await fizzBuzz(req.body.number);
-      let saveData = { number: noPassed, result };
-      const createdData = await fizzbuzzModel.create(saveData);
-      return res.status(200).json({
-        Success: true,
-        message: "Successfully Created",
-        fizzbuzz: createdData.result,
+        message: "Invalid Payload number is required",
       });
     }
   } catch (err) {
     console.log("err", err);
-    return res
-      .status(400)
-      .json({
-        Success: false,
-        message: "Error while creating data",
-        error: err,
-      });
+    return res.status(400).json({
+      Success: false,
+      message: "Error while creating data",
+      error: err,
+    });
   }
 };
 
@@ -67,5 +69,5 @@ const fizzBuzz = (n) => {
 };
 module.exports = {
   saveFizzBuzzResult,
-  fizzBuzz
+  fizzBuzz,
 };
