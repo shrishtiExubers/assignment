@@ -36,7 +36,7 @@ describe("fizzbuzz Unit Tests", function () {
       expect(res.statusCode).toEqual(400);
     });
 
-    it.only("should give error if it is invalid json", async function () {
+    it("should give error if it is invalid json", async function () {
       const res = await request(app)
         .post("/api/fizzbuzz")
         .send( 'test')
